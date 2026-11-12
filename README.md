@@ -177,13 +177,11 @@ and the use of RoboFS grants no rights to OpenFS or to the source data sets list
 
 ## Data sources and credits
 
-The word lists and the OpenFS generator and recognizer come from OpenFS. The words were collected by the OpenFS
-authors from the following sources:
-
-- FSboard (CC BY 4.0),
-- ChicagoFSWild and ChicagoFSWild+,
-- FSNeo (neobench) words, collected by the OpenFS authors from Reddit, news articles, the New York Times and
-  dictionaries.
+The words of the experiments come from the label sets of FSboard (CC BY 4.0), ChicagoFSWild, ChicagoFSWild+ and
+FSNeo: training, validation and test words were sampled from the corresponding splits with no word shared between
+sets. The FSNeo (neobench) words were collected by the OpenFS authors from Reddit, news articles, the New York Times
+and dictionaries. The human landmarks were generated with the OpenFS generator, and recognition uses the OpenFS
+recognizer; no video or landmark data of the source data sets is redistributed.
 
 Users are responsible for complying with the licenses and terms of these data sets. Please also cite OpenFS when
 using RoboFS. The simulation builds on Isaac Lab, Newton and RSL-RL, and uses the Shadow Hand model of Isaac Lab.
