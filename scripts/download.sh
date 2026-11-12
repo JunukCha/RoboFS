@@ -26,14 +26,17 @@ source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 MODEL_REPO=Jucha/RoboFS
 DATA_REPO=Jucha/RoboFS-Data
 
-if command -v hf >/dev/null 2>&1; then
-    hf_download=(hf download)
-elif command -v huggingface-cli >/dev/null 2>&1; then
-    hf_download=(huggingface-cli download)
-else
-    echo "Install the Hugging Face CLI first: pip install -U huggingface_hub" >&2
-    exit 1
-fi
+# hf_cli: set hf_download to the Hugging Face CLI (huggingface_hub, installed by requirements.txt)
+hf_cli() {
+    if command -v hf >/dev/null 2>&1; then
+        hf_download=(hf download)
+    elif command -v huggingface-cli >/dev/null 2>&1; then
+        hf_download=(huggingface-cli download)
+    else
+        echo "Install the Hugging Face CLI first: pip install -U huggingface_hub" >&2
+        exit 1
+    fi
+}
 
 # fetch <repo> <repo type> <local dir> <file ...>: download the files that are not there yet
 fetch() {
@@ -43,6 +46,7 @@ fetch() {
         [[ -f $dir/$file ]] || missing+=("$file")
     done
     if ((${#missing[@]})); then
+        hf_cli
         "${hf_download[@]}" "$repo" "${missing[@]}" --repo-type "$type" --local-dir "$dir"
     fi
 }
