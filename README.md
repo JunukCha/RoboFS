@@ -1,6 +1,6 @@
 # RoboFS
 
-Code for **RoboFS: Scalable Data Generation and Text-to-Action Learning for Robot Fingerspelling** (WACV 2027).
+Code for **RoboFS: Scalable Data Generation and Text-to-Action Learning for Robot Fingerspelling** (WACV 2027 Workshop HOUR).
 
 Paper: TODO | Project page: TODO | Models: Hugging Face `Jucha/RoboFS` (TODO: URL) | Data: Hugging Face
 `Jucha/RoboFS-Data` (TODO: URL)
@@ -192,7 +192,7 @@ using RoboFS. The simulation builds on Isaac Lab, Newton and RSL-RL, and uses th
 @inproceedings{kim2027robofs,
   title     = {{RoboFS}: Scalable Data Generation and Text-to-Action Learning for Robot Fingerspelling},
   author    = {Kim, Jihyeon and Cha, Junuk},
-  booktitle = {Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
+  booktitle = {IEEE/CVF Winter Conference on Applications of Computer Vision (WACV) Workshops},
   year      = {2027}
 }
 ```
