@@ -1,0 +1,10 @@
+# Python packages on top of Isaac Lab 3.0.0-rc1 (which provides torch, gymnasium, rsl-rl-lib, Newton and Warp).
+numpy
+scipy
+pyyaml
+hydra-core
+omegaconf
+tqdm
+gdown
+huggingface_hub
+pytest

@@ -1,0 +1,3 @@
+[submodule "external/OpenFS"]
+	path = external/OpenFS
+	url = https://github.com/AIRC-KETI/OpenFS.git

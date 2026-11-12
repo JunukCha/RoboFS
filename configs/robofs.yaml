@@ -1,0 +1,81 @@
+# RoboFS final settings (WACV 2027). The Python entry points read their defaults from this file,
+# so the scripts in scripts/ only pass paths. Paths are relative to the repository root.
+
+paths:
+  openfs_dir: external/OpenFS
+  generator_checkpoint: external/OpenFS/outputs_save/generator_df_fsboard/best_model.pth
+  recognizer_checkpoint: external/OpenFS/outputs_save/recognizer_fsboard/best_model.pth
+  word_lists: data/word_lists               # {train,validation,test}_words.txt, train_50k_words.txt
+  generation: data/generation               # per-word OpenFS outputs, one folder per word list
+  generated: data/generated                 # packed generated hands {train,validation,test}.npz
+  targets: data/targets/relation            # relation-retargeted targets {train,validation,test}.npz
+  network_targets: data/targets/relation_net  # retargeting-network targets {validation,test}.npz
+  robofs_data: data/robofs_data             # RoboFS-Data shards part_XX.npz
+  tracker_checkpoint: checkpoints/tracker/model_1000.pt   # params/{env,agent}.yaml beside it
+  retarget_net_checkpoint: checkpoints/retarget_net/model.pt
+  t2a_checkpoint: checkpoints/t2a/model.pt
+  results: results
+
+generation:
+  dataset: fsboard              # OpenFS character set and generator
+  frames_per_letter: 8
+  fps: 30.0                     # playback rate assigned to the generated frames
+  seed: 0                       # base seed; each word adds a hash of its text
+  samples_per_word: 1
+  batch_size: 256               # words sampled together; per-word results equal batch size 1
+  depth_sign: 1                 # palm alignment: OpenFS depth axis is used as is
+
+retarget:
+  steps: 500                    # Adam iterations per batch of clips
+  learning_rate: 0.05           # cosine-annealed over the steps
+  smooth_weight: 1.0e-3         # frame-to-frame penalty on normalized joint commands
+  direction_weight: 3.0         # bone-direction term (3 * rho^2 with rho = 25 mm)
+  fingertip_weight: 2.0         # fingertip-relation term (2 * rho^2 * ||.||^2 / rho^2)
+  rho_m: 0.025
+  clips_per_batch: 100
+
+retarget_net:
+  steps: 8000
+  batch_size: 64
+  learning_rate: 1.0e-3
+  smooth_weight: 1.0e-3
+  eval_every: 500
+  seed: 42
+  predict_batch_size: 200
+
+tracker:
+  num_envs: 1024
+  max_iterations: 1000
+  seed: 42
+  save_interval: 1000
+  future_offsets_s: [0.1, 0.2, 0.333]   # look-ahead target observations
+  rewards:
+    landmarks: {weight: 3.0, sigma: 0.025}
+    fingertips: {weight: 2.0, sigma: 0.04}
+    penetration: -3.0
+    action_rate: -0.005
+
+robofs_data:
+  num_envs: 256                 # parallel environments of the tracker rollouts
+  chunk_words: 5000             # the 50k word list is built in 10 consecutive chunks
+
+t2a:
+  chunk: 4                      # frames per decoder step
+  dim: 256
+  layers: 4
+  heads: 8
+  steps: 40000
+  batch_size: 128
+  learning_rate: 3.0e-4
+  stop_weight: 0.1
+  input_noise: 0.02
+  val_words: 500
+  eval_every: 4000
+  seed: 42
+  max_frames_per_letter: 16     # decoding limit when no stop is predicted
+  predict_batch_size: 256
+
+evaluation:
+  tracker_num_envs: 64          # parallel environments for tracker evaluation
+  replay_num_envs: 256          # parallel environments for open-loop replay of T2A actions
+  recognizer_device: cuda
