@@ -2,8 +2,7 @@
 
 Code for **RoboFS: Scalable Data Generation and Text-to-Action Learning for Robot Fingerspelling** (WACV 2027 Workshop HOUR).
 
-Paper: TODO | Project page: TODO | Models: Hugging Face `Jucha/RoboFS` (TODO: URL) | Data: Hugging Face
-`Jucha/RoboFS-Data` (TODO: URL)
+Paper: coming soon | [Project page](https://junukcha.github.io/project/robofs/) | Models: [Jucha/RoboFS](https://huggingface.co/Jucha/RoboFS) | Data: [Jucha/RoboFS-Data](https://huggingface.co/datasets/Jucha/RoboFS-Data)
 
 RoboFS turns written words into fingerspelling motions of a Shadow Hand with a fixed wrist, simulated in Isaac Lab.
 The pipeline has four stages:
@@ -36,7 +35,7 @@ RoboFS runs in Isaac Lab 3.0.0-rc1 (Isaac Sim, Newton physics, RSL-RL) on a Linu
 simplest setup is the Isaac Lab container `nvcr.io/nvidia/isaac-lab:3.0.0-rc1`.
 
 ```bash
-git clone --recurse-submodules TODO_REPOSITORY_URL RoboFS
+git clone --recurse-submodules https://github.com/JunukCha/RoboFS.git RoboFS
 cd RoboFS
 # Python of the Isaac Lab installation; in the container it is /workspace/isaaclab/_isaac_sim/python.sh.
 export PYTHON=/workspace/isaaclab/_isaac_sim/python.sh
